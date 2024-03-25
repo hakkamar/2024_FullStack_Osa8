@@ -4,7 +4,7 @@ import Select from "react-select";
 import { useMutation } from "@apollo/client";
 import { ADD_BIRTHYEAR, ALL_AUTHORS } from "../queries";
 
-const Authors = ({ authors, setError }) => {
+const Authors = ({ authors, token, setError }) => {
   const [nameToUpdate, setNameToUpdate] = useState(null);
   const [born, setBorn] = useState("");
 
@@ -63,7 +63,7 @@ const Authors = ({ authors, setError }) => {
         </tbody>
       </table>
 
-      {noBirthYear.length > 0 ? (
+      {token && noBirthYear.length > 0 ? (
         <div>
           <h2>set birthyear</h2>
           <form onSubmit={submit}>
