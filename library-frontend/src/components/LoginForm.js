@@ -2,13 +2,9 @@ import { useState, useEffect } from "react";
 import { useMutation } from "@apollo/client";
 import { LOGIN } from "../queries";
 
-import { useNavigate } from "react-router-dom";
-
 const LoginForm = ({ setError, setToken }) => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
-
-  const navigate = useNavigate();
 
   const [login, result] = useMutation(LOGIN, {
     onError: (error) => {
@@ -21,10 +17,8 @@ const LoginForm = ({ setError, setToken }) => {
       const token = result.data.login.value;
       setToken(token);
       localStorage.setItem("libraryApp-user-token", token);
-
-      navigate("/");
     }
-  }, [result.data]);
+  }, [result.data, setToken]);
 
   const submit = async (event) => {
     event.preventDefault();
@@ -42,6 +36,7 @@ const LoginForm = ({ setError, setToken }) => {
           username{" "}
           <input
             value={username}
+            name="kayttajatunnus"
             onChange={({ target }) => setUsername(target.value)}
           />
         </div>
@@ -49,7 +44,9 @@ const LoginForm = ({ setError, setToken }) => {
           password{" "}
           <input
             type="password"
+            name="salasana"
             value={password}
+            autoComplete="on"
             onChange={({ target }) => setPassword(target.value)}
           />
         </div>

@@ -12,6 +12,7 @@ const Recommendations = (props) => {
     },
   });
   const meResult = useQuery(ME, {
+    pollInterval: 500,
     onError: (error) => {
       console.log("errori, horrori ME haussa");
     },

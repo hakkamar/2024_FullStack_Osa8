@@ -1,4 +1,4 @@
-import { useQuery, useApolloClient } from "@apollo/client";
+import { useQuery, useApolloClient, useSubscription } from "@apollo/client";
 import { useState } from "react";
 
 import Authors from "./components/Authors";
@@ -9,7 +9,7 @@ import LoginForm from "./components/LoginForm";
 
 import { Routes, Route, Link, Navigate, useNavigate } from "react-router-dom";
 
-import { ALL_AUTHORS } from "./queries";
+import { ALL_AUTHORS, BOOK_ADDED } from "./queries";
 
 const padding = {
   padding: 5,
@@ -30,6 +30,14 @@ const App = () => {
   const client = useApolloClient();
 
   const navigate = useNavigate();
+
+  useSubscription(BOOK_ADDED, {
+    onData: ({ data }) => {
+      if (!data.loading) {
+        alert(`Book '${data.data.bookAdded.title}' added`);
+      }
+    },
+  });
 
   const notify = (message) => {
     setErrorMessage(message);
@@ -107,7 +115,13 @@ const App = () => {
         />
         <Route
           path="/login"
-          element={<LoginForm setError={notify} setToken={setToken} />}
+          element={
+            token ? (
+              <Navigate replace to="/" />
+            ) : (
+              <LoginForm setError={notify} setToken={setToken} />
+            )
+          }
         />
       </Routes>
     </div>

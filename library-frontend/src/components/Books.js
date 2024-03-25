@@ -24,7 +24,6 @@ const Books = (props) => {
     refetchQueries: [{ query: ALL_BOOKS }],
     pollInterval: 500,
     variables: { genre: genreToShow.value },
-    //skip: !genreToShow,
   });
 
   if (result.loading) {

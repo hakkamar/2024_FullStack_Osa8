@@ -55,6 +55,7 @@ const NewBook = ({ setError }) => {
           title
           <input
             value={title}
+            name="title"
             onChange={({ target }) => setTitle(target.value)}
           />
         </div>
@@ -62,6 +63,7 @@ const NewBook = ({ setError }) => {
           author
           <input
             value={author}
+            name="author"
             onChange={({ target }) => setAuthor(target.value)}
           />
         </div>
@@ -70,20 +72,24 @@ const NewBook = ({ setError }) => {
           <input
             type="number"
             value={published}
+            name="published"
             onChange={({ target }) => setPublished(target.value)}
           />
         </div>
         <div>
           <input
             value={genre}
+            name="genre"
             onChange={({ target }) => setGenre(target.value)}
           />
-          <button onClick={addGenre} type="button">
+          <button onClick={addGenre} type="button" name="genre-button">
             add genre
           </button>
         </div>
         <div>genres: {genres.join(" ")}</div>
-        <button type="submit">create book</button>
+        <button type="submit" name="create-button">
+          create book
+        </button>
       </form>
     </div>
   );

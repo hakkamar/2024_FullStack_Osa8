@@ -79,6 +79,7 @@ const Authors = ({ authors, token, setError }) => {
               <input
                 type="number"
                 value={born}
+                name="born"
                 onChange={({ target }) => setBorn(target.value)}
               />
             </div>
